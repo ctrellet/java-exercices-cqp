@@ -12,7 +12,7 @@ public class School {
     private int nbStudents = 0;
     private int cumulAge = 0;
 
-    ArrayList<Student> etudiants = new ArrayList<Student>();
+    ArrayList<Student> etudiants = new ArrayList<>();
 
     // Le constructeur avec uniqument le nom de la classe
     public School( String name) {
@@ -21,9 +21,23 @@ public class School {
 
     // La méthode pour ajouter les étudiants
     // sans avoir besoin d'utiliser un objet Student en entrée.
-    // On doit pouvoir utiliser l'obejt School sans connaitre l'objet Student
+    // On doit pouvoir utiliser l'objet School sans les héritages
     public void addStudent( String firstName, String lastName, String birthday, int age){
-        this.etudiants.add( new Student(firstName, lastName, birthday, age) );
+        this.etudiants.add( new Graduate(firstName, lastName, birthday, age) );
+
+        // A remplacer par ça, si on voulait garder le comportement spécifique de l'objet Student,
+        // dans notre cas on n'aurai pas d'affichage du diplome.
+        // this.etudiants.add( new Student(firstName, lastName, birthday, age) );
+        addCommonProcess(age);
+    }
+    // On doit pouvoir utiliser l'objet School sans connaitre l'objet Graduate aussi
+    public void addStudent( String firstName, String lastName, String birthday, int age, int grade){
+        this.etudiants.add( new Graduate(firstName, lastName, birthday, age, grade) );
+        addCommonProcess(age);
+    }
+
+    // Traitemetns communs lors de l'ajout d'un etudiant
+    private void addCommonProcess(int age){
         this.nbStudents++;
         this.cumulAge+=age;
     }
