@@ -1,18 +1,19 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.StringJoiner;
+import java.time.LocalDate;
 
 /**
  * Created by christophe on 23/01/17.
  */
+
 public class School {
 
     private String name;
     private int nbStudents = 0;
     private int cumulAge = 0;
 
-    ArrayList<Student> etudiants = new ArrayList<>();
+    private ArrayList<Student> etudiants = new ArrayList<>();
 
     // Le constructeur avec uniqument le nom de la classe
     public School( String name) {
@@ -22,7 +23,7 @@ public class School {
     // La méthode pour ajouter les étudiants
     // sans avoir besoin d'utiliser un objet Student en entrée.
     // On doit pouvoir utiliser l'objet School sans les héritages
-    public void addStudent( String firstName, String lastName, String birthday, int age){
+    public void addStudent( String firstName, String lastName, LocalDate birthday, int age){
         this.etudiants.add( new Graduate(firstName, lastName, birthday, age) );
 
         // A remplacer par ça, si on voulait garder le comportement spécifique de l'objet Student,
@@ -31,9 +32,13 @@ public class School {
         addCommonProcess(age);
     }
     // On doit pouvoir utiliser l'objet School sans connaitre l'objet Graduate aussi
-    public void addStudent( String firstName, String lastName, String birthday, int age, int grade){
+    public void addStudent( String firstName, String lastName, LocalDate birthday, int age, int grade){
         this.etudiants.add( new Graduate(firstName, lastName, birthday, age, grade) );
         addCommonProcess(age);
+    }
+
+    public Student getGraduate(int index){
+        return this.etudiants.get(index);
     }
 
     // Traitemetns communs lors de l'ajout d'un etudiant

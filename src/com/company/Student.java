@@ -1,26 +1,26 @@
 package com.company;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Created by christophe on 23/01/17.
  */
 
-import java.time.LocalDate;  // permet de gérer des dates uniquement (pas les heures) et sans gestion de fuseau horaire
-
 public class Student {
     private String  firstName;
     private String  lastName;
-    private String  birthday;
+    private LocalDate birthday;
     private int     age;
 
     // Le constructeur avec toutes les valeurs passées en paramètres
-    public Student(String firstName, String lastName, String birthday, int age){
+    public Student(String firstName, String lastName, LocalDate birthday, int age){
         this.firstName  = firstName;
         this.lastName   = lastName;
         this.birthday   = birthday;
         this.age        = age;
     }
 
-    // Les Getter
     public String getFirstName() {
         return firstName;
     }
@@ -29,7 +29,7 @@ public class Student {
         return lastName;
     }
 
-    public String getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
@@ -42,19 +42,28 @@ public class Student {
         age = age;
     }
 
-    // Methode toString
-
-
     @Override
     public String toString() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         return   "\n----------------------------------------------------------"
                 +"\nS T U D E N T :"
                 +"\n----------------------------------------------------------"
                 +"\nfirstName : " + this.firstName
                 +"\nlastName  : " + this.lastName
-                +"\nbirthday  : " + this.birthday
+                +"\nbirthday  : " + formatter.format(this.birthday)
                 +"\nage       : " + this.age
                 +"\n"
                 ;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Student studentToCompare = (Student) obj;
+        return (this.firstName== studentToCompare.getFirstName())
+            && (this.lastName == studentToCompare.getLastName())
+            && (this.birthday == studentToCompare.getBirthday())
+            && (this.age      == studentToCompare.getAge()) ;
     }
 }

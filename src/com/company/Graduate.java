@@ -1,26 +1,39 @@
 package com.company;
 
+import java.time.LocalDate;
+
 /**
  * Created by christophe on 23/01/17.
  */
+
 public class Graduate extends Student {
 
     private int grade;
 
-    public Graduate(String firstName, String lastName, String birthday, int age, int grade){
+    public Graduate(String firstName, String lastName, LocalDate birthday, int age, int grade){
         super( firstName, lastName, birthday, age);
         this.grade=grade;
     }
 
-    public Graduate(String firstName, String lastName, String birthday, int age) {
+    public Graduate(String firstName, String lastName, LocalDate birthday, int age) {
         super(firstName, lastName, birthday, age);
         this.grade=0;
     }
 
+    public int getGrade() {
+        return grade;
+    }
+
     @Override
     public String toString() {
+        String toReturn = super.toString() + "Diplome      : " ;
+        return gradeInt2str(this.grade)+"\n";
+    }
+
+    // Conversion de d'indice du grade en libellé
+    public String gradeInt2str( int grade){
         String toReturn = super.toString() + "Diplome   : " ;
-        switch (this.grade){
+        switch (grade){
             case 1:  toReturn += "bac";
                 break;
             case 2:  toReturn += "bac+2";
@@ -34,7 +47,13 @@ public class Graduate extends Student {
             default: toReturn += "inconnu";
                 break;
         }
+        return toReturn;
+    }
 
-        return toReturn+"\n";
+    @Override
+    public boolean equals(Object obj) {
+        // On ne compare que l'attribut de la class, le reste est fait dans la class parent ,
+        Graduate graduateToCompare = (Graduate) obj;
+        return super.equals(graduateToCompare) && (this.grade==graduateToCompare.getGrade());
     }
 }
